@@ -24,28 +24,25 @@ class PrefixTree
   def add key
     key_ar = key.split("")
     current_node = @root
-    for i in 0...key_ar.size
-      if current_node.children[key_ar[i]].nil?
-        current_node.children[key_ar[i]] = PrefixTreeNode.new key_ar[i]
-      end
-      if i == key_ar.size-1
-        current_node.children[key_ar[i]].is_key = true
-        current_node.children[key_ar[i]].let_count = key_ar.size
-      end
-      current_node = current_node.children[key_ar[i]]
+    key_ar.each do |k|
+      current_node.children[k] = PrefixTreeNode.new k if current_node.children[k].nil?
+      current_node = current_node.children[k]
     end
+    current_node.is_key = true
+    current_node.let_count = key_ar.size
   end
 
   private
   def search_prefix prefix
     prefix_ar = prefix.split("")
     current_node = @root
-    for i in 0...prefix_ar.size
-      if current_node.children[prefix_ar[i]].nil?
+    flag = false
+    prefix_ar.each do |key|
+      if current_node.children[key].nil?
         flag = true
         break
       else
-        current_node = current_node.children[prefix_ar[i]]
+        current_node = current_node.children[key]
       end
     end
     [current_node, flag]
@@ -56,10 +53,10 @@ class PrefixTree
       if current_node.children[elem].is_key
         if current_node.children[elem].children.empty?
           final_word = prefix + current_node.children[elem].key
-          if current_node.children[elem].let_count >= 5 then @list_of_words.push(final_word); end
+          @list_of_words.push(final_word) if current_node.children[elem].let_count >= 5
         else
           final_word = prefix + current_node.children[elem].key
-          if current_node.children[elem].let_count >= 5 then @list_of_words.push(final_word); end
+          @list_of_words.push(final_word) if current_node.children[elem].let_count >= 5
           search current_node.children[elem], final_word
         end
       else
@@ -74,7 +71,7 @@ class PrefixTree
     search_result = search_prefix key
     is_kye_absent = search_result[1]
     current_node = search_result[0]
-    if is_kye_absent then return false; end
+    return false if is_kye_absent
     current_node.is_key ? true : false
   end
 
@@ -90,17 +87,16 @@ class PrefixTree
     else
       @list_of_words.push("Prefix #{prefix} is absent in Prefix Tree")
     end
-    puts @list_of_words
+    @list_of_words
   end
 
   def save_to_file filename
-    if @list_of_words.empty? then list; end
+    list if @list_of_words.empty?
     File.open(filename +".txt", 'w'){ |file| file.write @list_of_words }
   end
 
   def load_from_file filename
     output = File.open(filename + ".txt", 'r'){ |file| file.read }
-    puts output
   end
 
   def save_to_zip_file filename
@@ -141,13 +137,13 @@ puts pr_tr.include? "hell"
 puts pr_tr.include? "word"
 puts pr_tr.include? "help"
 puts pr_tr.include? "tab"
-pr_tr.list
-pr_tr.list "jam"
-pr_tr.list "tab"
-pr_tr.list "ain"
+puts pr_tr.list
+puts pr_tr.list "jam"
+puts pr_tr.list "tab"
+puts pr_tr.list "ain"
 pr_tr.save_to_file "prefix_tree_1"
 puts "from file"
-pr_tr.load_from_file "prefix_tree_1"
+puts pr_tr.load_from_file "prefix_tree_1"
 pr_tr.save_to_zip_file "prefix_tree_7"
 puts "from zip"
 pr_tr.load_from_zip_file "prefix_tree_7"
