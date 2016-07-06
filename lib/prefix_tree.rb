@@ -66,6 +66,7 @@ class PrefixTree
         zipfile.add(filename + ".txt", filename + ".txt")
       end
     end
+    File.delete(filename + ".txt")
   end
 
   def load_from_zip_file filename
