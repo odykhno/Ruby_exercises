@@ -1,4 +1,4 @@
-require './prefix_tree_node'
+require 'prefix_tree/prefix_tree_node'
 require 'rubygems'
 require 'zip'
 
@@ -55,11 +55,7 @@ class PrefixTree
 
   def save_to_zip_file filename
     if File.file?(filename + ".txt")
-      begin
-        raise "Zip file with name #{filename}.zip is already exists"
-      rescue
-        puts $!.inspect
-      end
+      puts "Zip file with name #{filename}.zip is already exists"
     else
       save_to_file filename
       Zip::File.open(filename + ".zip", Zip::File::CREATE) do |zipfile|
@@ -71,11 +67,7 @@ class PrefixTree
 
   def load_from_zip_file filename
     if File.file?(filename + "_unpacked.txt")
-      begin
-        raise "Zip file with name #{filename}.zip is already unpacked"
-      rescue
-        puts $!.inspect
-      end
+        puts "Zip file with name #{filename}.zip is already unpacked"
     else
       Zip::File.open(filename + ".zip") do |zip_file|
       zip_file.each do |entry|
