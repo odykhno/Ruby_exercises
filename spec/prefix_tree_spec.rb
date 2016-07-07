@@ -67,7 +67,7 @@ describe PrefixTree do
       @prefix_tree.save_to_file "test"
     end
     it "create only one file with provided name" do
-      expect(Dir.glob(File.join(File.expand_path("../lib"), "test.txt")).length).to eq(1)
+      expect(Dir.glob(File.join(File.expand_path(""), "test.txt")).length).to eq(1)
     end
     after do
       File.delete("test.txt")
@@ -94,7 +94,7 @@ describe PrefixTree do
       @prefix_tree.save_to_zip_file "test"
     end
     it "create only one file with provided name" do
-      expect(Dir.glob(File.join(File.expand_path("../lib"), "test.zip")).length).to eq(1)
+      expect(Dir.glob(File.join(File.expand_path(""), "test.zip")).length).to eq(1)
     end
     after do
       File.delete("test.zip")
