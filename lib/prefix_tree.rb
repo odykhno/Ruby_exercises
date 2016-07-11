@@ -1,11 +1,12 @@
-require 'prefix_tree/prefix_tree_node'
+require './lib/prefix_tree/prefix_tree_node'
 require 'rubygems'
 require 'zip'
 
 class PrefixTree
   def initialize
     @root = PrefixTreeNode.new ""
-    @list_of_words = []
+    @list_of_words = {}
+    @new_word_added
   end
 
   attr_accessor :list_of_words
@@ -19,6 +20,7 @@ class PrefixTree
     end
     current_node.is_key = true
     current_node.let_count = key_ar.size
+    @new_word_added = true if key_ar.size >= 5
   end
 
   def include? key
@@ -33,20 +35,29 @@ class PrefixTree
     search_result = search_prefix prefix
     is_kye_absent = search_result[1]
     current_node = search_result[0]
-    @list_of_words = []
+    list_temp = []
     if prefix == ""
-      search
+      if @new_word_added
+        @list_of_words[""] = search list_temp
+      else
+        @list_of_words[""] ||= search list_temp
+      end
     elsif !is_kye_absent
-      search current_node, prefix
+      if @new_word_added
+        @list_of_words[prefix] = search list_temp, current_node, prefix
+      else
+        @list_of_words[prefix] ||= search list_temp, current_node, prefix
+      end
     else
-      @list_of_words.push("Prefix #{prefix} is absent in Prefix Tree")
+      puts "Prefix #{prefix} is absent in Prefix Tree"
     end
-    @list_of_words
+    @new_word_added = false
+    @list_of_words[prefix]
   end
 
   def save_to_file filename
-    list if @list_of_words.empty?
-    File.open(filename +".txt", 'w'){ |file| file.write @list_of_words }
+    list if @list_of_words[""].nil?
+    File.open(filename +".txt", 'w'){ |file| file.write @list_of_words[""] }
   end
 
   def load_from_file filename
@@ -54,7 +65,7 @@ class PrefixTree
   end
 
   def save_to_zip_file filename
-    if File.file?(filename + ".txt")
+    if File.file?(filename + ".zip")
       puts "Zip file with name #{filename}.zip is already exists"
     else
       save_to_file filename
@@ -62,12 +73,12 @@ class PrefixTree
         zipfile.add(filename + ".txt", filename + ".txt")
       end
     end
-    File.delete(filename + ".txt")
+    File.delete(filename + ".txt") if File.file?(filename + ".txt")
   end
 
   def load_from_zip_file filename
     if File.file?(filename + "_unpacked.txt")
-        puts "Zip file with name #{filename}.zip is already unpacked"
+      puts "Zip file with name #{filename}.zip is already unpacked"
     else
       Zip::File.open(filename + ".zip") do |zip_file|
       zip_file.each do |entry|
@@ -94,21 +105,22 @@ class PrefixTree
     [current_node, flag]
   end
 
-  def search current_node = @root, prefix = ""
+  def search list_of_words, current_node = @root, prefix = ""
     current_node.children.keys.each do |elem|
       if current_node.children[elem].is_key
         if current_node.children[elem].children.empty?
           final_word = prefix + current_node.children[elem].key
-          @list_of_words.push(final_word) if current_node.children[elem].let_count >= 5
+          list_of_words.push(final_word) if current_node.children[elem].let_count >= 5
         else
           final_word = prefix + current_node.children[elem].key
-          @list_of_words.push(final_word) if current_node.children[elem].let_count >= 5
-          search current_node.children[elem], final_word
+          list_of_words.push(final_word) if current_node.children[elem].let_count >= 5
+          search list_of_words, current_node.children[elem], final_word
         end
       else
         final_word = prefix + current_node.children[elem].key
-        search current_node.children[elem], final_word
+        search list_of_words, current_node.children[elem], final_word
       end
     end
+    list_of_words
   end
 end

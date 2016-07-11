@@ -17,6 +17,9 @@ puts pr_tr.list
 puts pr_tr.list "jam"
 puts pr_tr.list "tab"
 puts pr_tr.list "ain"
+pr_tr.add "flower"
+puts pr_tr.list
+puts pr_tr.list
 pr_tr.save_to_file "prefix_tree_1"
 puts "from file"
 puts pr_tr.load_from_file "prefix_tree_1"
