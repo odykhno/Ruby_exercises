@@ -117,6 +117,5 @@ class PrefixTree
 end
 
 FRONT_OBJECT = PrefixTree.new
-$SAFE = 1
 DRb.start_service(URI, FRONT_OBJECT)
 DRb.thread.join
