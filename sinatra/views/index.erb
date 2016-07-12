@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Prefix Tree</title>
+</head>
+<body>
+  <h3>This is Prefix Tree</h3>
+
+  <form action="/add" method="post">
+    <h4>Add new word</h4>
+    <label>Type the word to add
+    <p><input name="word_add" type="text"></p>
+    <p><input type="submit" value="Add"></p>
+  </form>
+
+  <form action="/include" method="get">
+    <h4>Check presense of the word in the tree</h4>
+    <label>Type the word to check its presense in the tree
+      <p><input name="word_check" type="text"></p>
+      <p><input type="submit" value="Check"></p>
+  </form>
+
+  <form action="/list" method="get">
+    <h4>Show list of words in the tree</h4>
+    <label>Type the prefix of word if you want
+      <p><input name="prefix" type="text"></p>
+      <p><input type="submit" value="List"></p>
+  </form>
+
+</body>
+</html>
