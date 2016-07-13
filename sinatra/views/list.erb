@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>List of words</title>
+</head>
+<body>
+
+<% if @prefix != "" %>
+  <h4>List of words with 5 and more letters started with prefix <font color="red"><%= @prefix %></font>:</h4>
+  <% @output.each do |word| %>
+    <p><i><%= word %></i><p>
+  <% end %>
+<% else %>
+  <h4>List of words with 5 and more letters:</h4>
+  <% @output.each do |word| %>
+    <p><i><%= word %></i><p>
+  <% end %>
+<%end%>
+
+<form action="/list" method="get">
+  <label>Type prefix
+    <p><input name="prefix" type="text"></p>
+    <p><input type="submit" value="Show"></p>
+</form>
+
+<form action="/back" method="get">
+  <p><input type="submit" value="Back"></p>
+</form>
+
+</body>
+</html>

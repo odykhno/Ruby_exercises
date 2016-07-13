@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Add new word</title>
+</head>
+<body>
+
+<h4>Word <font color="red"><%= @word %></font> was successfully added</h4>
+
+<form action="/add" method="post">
+  <label>Type one more word to add
+  <p><input name="word_add" type="text"></p>
+  <p><input type="submit" value="Add"></p>
+</form>
+
+<form action="/back" method="get">
+  <p><input type="submit" value="Back"></p>
+</form>
+
+</body>
+</html>
