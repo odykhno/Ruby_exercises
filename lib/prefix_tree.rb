@@ -1,4 +1,4 @@
-require './lib/prefix_tree/prefix_tree_node'
+require '../lib/prefix_tree/prefix_tree_node'
 require 'rubygems'
 require 'zip'
 
@@ -7,9 +7,11 @@ class PrefixTree
     @root = PrefixTreeNode.new ""
     @list_of_words = {}
     @new_word_added
+    @prefix_absent
+    @zip_file_error
   end
 
-  attr_accessor :list_of_words
+  attr_reader :prefix_absent, :zip_file_error
 
   def add key
     key_ar = key.split("")
@@ -32,6 +34,7 @@ class PrefixTree
   end
 
   def list prefix = ""
+    @prefix_absent = false
     search_result = search_prefix prefix
     is_kye_absent = search_result[1]
     current_node = search_result[0]
@@ -50,6 +53,7 @@ class PrefixTree
       end
     else
       puts "Prefix #{prefix} is absent in Prefix Tree"
+      @prefix_absent = true
     end
     @new_word_added = false
     @list_of_words[prefix]
@@ -65,8 +69,10 @@ class PrefixTree
   end
 
   def save_to_zip_file filename
+    @zip_file_error = false
     if File.file?(filename + ".zip")
       puts "Zip file with name #{filename}.zip is already exists"
+      @zip_file_error = true
     else
       save_to_file filename
       Zip::File.open(filename + ".zip", Zip::File::CREATE) do |zipfile|
@@ -77,8 +83,10 @@ class PrefixTree
   end
 
   def load_from_zip_file filename
+    @zip_file_error = false
     if File.file?(filename + "_unpacked.txt")
       puts "Zip file with name #{filename}.zip is already unpacked"
+      @zip_file_error = true
     else
       Zip::File.open(filename + ".zip") do |zip_file|
       zip_file.each do |entry|
