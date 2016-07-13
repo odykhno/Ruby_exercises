@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<% if $pr_tr.include? @word %>
+<% if @result %>
   <h4>Word <font color="red"><%= @word %></font> is present in the tree</h4>
 <% else %>
   <h4>Word <font color="red"><%= @word %></font> is absent in the tree</h4>

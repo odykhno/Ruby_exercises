@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Save to zip file</title>
+</head>
+<body>
+
+<% if $pr_tr.zip_file_error %>
+<h4>Zip file with name <font color="red"><%= @filename %>.zip</font> is already exists</h4>
+<% end %>
+<h4>File <font color="red"><%= @filename %>.zip</font> was successfully created</h4>
+
+<form action="/back" method="get">
+  <p><input type="submit" value="Back"></p>
+</form>
+
+</body>
+</html>

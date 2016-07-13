@@ -28,5 +28,33 @@
       <p><input type="submit" value="List"></p>
   </form>
 
+  <form action="/save" method="post">
+    <h4>Save to file</h4>
+    <label>Type filename
+      <p><input name="filename" type="text"></p>
+      <p><input type="submit" value="Save"></p>
+  </form>
+
+  <form action="/load" method="get">
+    <h4>Load from file</h4>
+    <label>Type filename
+      <p><input name="filename" type="text"></p>
+      <p><input type="submit" value="Load"></p>
+  </form>
+
+  <form action="/save_zip" method="post">
+    <h4>Save to zip file</h4>
+    <label>Type filename
+      <p><input name="filename" type="text"></p>
+      <p><input type="submit" value="Save"></p>
+  </form>
+
+  <form action="/load_zip" method="get">
+    <h4>Load from zip file</h4>
+    <label>Type filename
+      <p><input name="filename" type="text"></p>
+      <p><input type="submit" value="Load"></p>
+  </form>
+
 </body>
 </html>

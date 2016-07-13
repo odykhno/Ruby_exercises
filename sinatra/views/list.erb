@@ -6,7 +6,9 @@
 </head>
 <body>
 
-<% if @prefix != "" %>
+<% if $pr_tr.prefix_absent %>
+    <h4> Prefix <font color="red"><%= @prefix %></font> is absent in the tree</h4>
+<% elsif @prefix != "" %>
   <h4>List of words with 5 and more letters started with prefix <font color="red"><%= @prefix %></font>:</h4>
   <% @output.each do |word| %>
     <p><i><%= word %></i><p>

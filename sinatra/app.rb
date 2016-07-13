@@ -19,7 +19,7 @@ end
 
 get '/include' do
   @word = params[:word_check]
-  # $pr_tr.include? @word
+  @result = $pr_tr.include? @word
   erb :include
 end
 
@@ -31,6 +31,38 @@ get '/list' do
     @output = $pr_tr.list
   end
   erb :list
+end
+
+post '/save' do
+  @filename = params[:filename]
+  $pr_tr.save_to_file @filename
+  erb :save
+end
+
+get '/load' do
+  @filename = params[:filename]
+  @output = $pr_tr.load_from_file @filename
+  @output = @output[1, @output.size-2]
+  @output = @output.split(",")
+  erb :load
+end
+
+post '/save_zip' do
+  @filename = params[:filename]
+  unless $pr_tr.zip_file_error
+    $pr_tr.save_to_zip_file @filename
+  end
+  erb :save_zip
+end
+
+get '/load_zip' do
+  @filename = params[:filename]
+  unless $pr_tr.zip_file_error
+    @output = $pr_tr.load_from_zip_file @filename
+    @output = @output[1, @output.size-2]
+    @output = @output.split(",")
+  end
+  erb :load_zip
 end
 
 
