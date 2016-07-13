@@ -64,5 +64,3 @@ get '/load_zip' do
   end
   erb :load_zip
 end
-
-

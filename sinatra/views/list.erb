@@ -6,29 +6,29 @@
 </head>
 <body>
 
-<% if $pr_tr.prefix_absent %>
+  <% if $pr_tr.prefix_absent %>
     <h4> Prefix <font color="red"><%= @prefix %></font> is absent in the tree</h4>
-<% elsif @prefix != "" %>
-  <h4>List of words with 5 and more letters started with prefix <font color="red"><%= @prefix %></font>:</h4>
-  <% @output.each do |word| %>
-    <p><i><%= word %></i><p>
-  <% end %>
-<% else %>
-  <h4>List of words with 5 and more letters:</h4>
-  <% @output.each do |word| %>
-    <p><i><%= word %></i><p>
-  <% end %>
-<%end%>
+  <% elsif @prefix != "" %>
+    <h4>List of words with 5 and more letters started with prefix <font color="red"><%= @prefix %></font>:</h4>
+    <% @output.each do |word| %>
+      <p><i><%= word %></i><p>
+    <% end %>
+  <% else %>
+    <h4>List of words with 5 and more letters:</h4>
+    <% @output.each do |word| %>
+      <p><i><%= word %></i><p>
+    <% end %>
+  <%end%>
 
-<form action="/list" method="get">
-  <label>Type prefix
+  <form action="/list" method="get">
+    <label>Type prefix
     <p><input name="prefix" type="text"></p>
     <p><input type="submit" value="Show"></p>
-</form>
+  </form>
 
-<form action="/back" method="get">
-  <p><input type="submit" value="Back"></p>
-</form>
+  <form action="/back" method="get">
+    <p><input type="submit" value="Back"></p>
+  </form>
 
 </body>
 </html>

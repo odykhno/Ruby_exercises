@@ -6,21 +6,21 @@
 </head>
 <body>
 
-<% if @result %>
-  <h4>Word <font color="red"><%= @word %></font> is present in the tree</h4>
-<% else %>
-  <h4>Word <font color="red"><%= @word %></font> is absent in the tree</h4>
-<%end%>
+  <% if @result %>
+    <h4>Word <font color="red"><%= @word %></font> is present in the tree</h4>
+  <% else %>
+    <h4>Word <font color="red"><%= @word %></font> is absent in the tree</h4>
+  <%end%>
 
-<form action="/include" method="get">
-  <label>Type one more word to check
+  <form action="/include" method="get">
+    <label>Type one more word to check
     <p><input name="word_check" type="text"></p>
     <p><input type="submit" value="Check"></p>
-</form>
+  </form>
 
-<form action="/back" method="get">
-  <p><input type="submit" value="Back"></p>
-</form>
+  <form action="/back" method="get">
+    <p><input type="submit" value="Back"></p>
+  </form>
 
 </body>
 </html>
