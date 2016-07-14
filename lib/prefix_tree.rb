@@ -60,7 +60,7 @@ class PrefixTree
   end
 
   def save_to_file filename
-    list if @list_of_words[""].nil?
+    list if @list_of_words[""].nil? || @new_word_added
     File.open(filename +".txt", 'w'){ |file| file.write @list_of_words[""] }
   end
 
