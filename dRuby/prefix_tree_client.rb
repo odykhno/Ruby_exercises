@@ -11,8 +11,8 @@ puts "include - to check is the tree already has specific word or not"
 puts "list - to see words in the tree"
 puts "save - to save the tree in the file"
 puts "load - to load the tree from the file"
-puts "save_zip - to save the tree in the zip-file"
-puts "load_zip - to load the tree from the zip-file"
+puts "save_zip - to save the tree in the zip file"
+puts "load_zip - to load the tree from the zip file"
 command = gets.chomp
 case command
   when "add"
@@ -44,16 +44,19 @@ case command
   when "load"
     puts "please, enter the name of file"
     filename = gets.chomp
-    puts prefix_tree.load_from_file filename
+    output = prefix_tree.load_from_file filename
+    puts prefix_tree.file_error ? "file with name #{filename}.txt is absent" : output
   when "save_zip"
     puts "please, enter the name of file"
     filename = gets.chomp
     prefix_tree.save_to_zip_file filename
-    puts "file #{filename}.zip is successfully saved"
+    puts prefix_tree.file_error ? "file with name #{filename}.zip is already exists" :
+                                  "file #{filename}.zip is successfully saved"
   when "load_zip"
     puts "please, enter the name of file"
     filename = gets.chomp
-    puts prefix_tree.load_from_zip_file filename
+    output = prefix_tree.load_from_zip_file filename
+    puts prefix_tree.file_error ? "file with name #{filename}.zip is already unpacked" : output
   else
     puts "there is unknown command, please, try again"
 end
