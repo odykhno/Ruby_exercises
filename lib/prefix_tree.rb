@@ -8,10 +8,10 @@ class PrefixTree
     @list_of_words = {}
     @new_word_added
     @prefix_absent
-    @zip_file_error
+    @file_error
   end
 
-  attr_reader :prefix_absent, :zip_file_error
+  attr_reader :prefix_absent, :file_error
 
   def add key
     key_ar = key.split("")
@@ -65,14 +65,20 @@ class PrefixTree
   end
 
   def load_from_file filename
-    output = File.open(filename + ".txt", 'r'){ |file| file.read }
+    @file_error = false
+    unless File.file?(filename + ".txt")
+      puts "File with name #{filename}.txt is not exists"
+      @file_error = true
+    else
+      output = File.open(filename + ".txt", 'r'){ |file| file.read }
+    end
   end
 
   def save_to_zip_file filename
-    @zip_file_error = false
+    @file_error = false
     if File.file?(filename + ".zip")
       puts "Zip file with name #{filename}.zip is already exists"
-      @zip_file_error = true
+      @file_error = true
     else
       save_to_file filename
       Zip::File.open(filename + ".zip", Zip::File::CREATE) do |zipfile|
@@ -83,10 +89,10 @@ class PrefixTree
   end
 
   def load_from_zip_file filename
-    @zip_file_error = false
+    @file_error = false
     if File.file?(filename + "_unpacked.txt")
       puts "Zip file with name #{filename}.zip is already unpacked"
-      @zip_file_error = true
+      @file_error = true
     else
       Zip::File.open(filename + ".zip") do |zip_file|
       zip_file.each do |entry|

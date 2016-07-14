@@ -42,22 +42,25 @@ end
 get '/load' do
   @filename = params[:filename]
   @output = $pr_tr.load_from_file @filename
-  @output = @output[1, @output.size-2]
-  @output = @output.split(",")
+  @error = $pr_tr.file_error
+  unless @error
+    @output = @output[1, @output.size-2]
+    @output = @output.split(",")
+  end
   erb :load
 end
 
 post '/save_zip' do
   @filename = params[:filename]
   $pr_tr.save_to_zip_file @filename
-  @error = $pr_tr.zip_file_error
+  @error = $pr_tr.file_error
   erb :save_zip
 end
 
 get '/load_zip' do
   @filename = params[:filename]
   @output = $pr_tr.load_from_zip_file @filename
-  @error = $pr_tr.zip_file_error
+  @error = $pr_tr.file_error
   unless @error
     @output = @output[1, @output.size-2]
     @output = @output.split(",")
