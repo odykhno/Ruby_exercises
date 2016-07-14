@@ -1,4 +1,4 @@
-require '../lib/prefix_tree/prefix_tree_node'
+require_relative 'prefix_tree/prefix_tree_node'
 require 'rubygems'
 require 'zip'
 
