@@ -6,7 +6,7 @@
 </head>
 <body>
 
-  <% if $pr_tr.zip_file_error %>
+  <% if @error %>
     <h4>Zip file with name <font color="red"><%= @filename %>.zip</font> is already exists</h4>
   <% else %>
     <h4>File <font color="red"><%= @filename %>.zip</font> was successfully created</h4>

@@ -49,16 +49,16 @@ end
 
 post '/save_zip' do
   @filename = params[:filename]
-  unless $pr_tr.zip_file_error
-    $pr_tr.save_to_zip_file @filename
-  end
+  $pr_tr.save_to_zip_file @filename
+  @error = $pr_tr.zip_file_error
   erb :save_zip
 end
 
 get '/load_zip' do
   @filename = params[:filename]
-  unless $pr_tr.zip_file_error
-    @output = $pr_tr.load_from_zip_file @filename
+  @output = $pr_tr.load_from_zip_file @filename
+  @error = $pr_tr.zip_file_error
+  unless @error
     @output = @output[1, @output.size-2]
     @output = @output.split(",")
   end
