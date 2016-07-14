@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Presence of word</title>
-</head>
-<body>
-
   <% if @result %>
     <h4>Word <font color="red"><%= @word %></font> is present in the tree</h4>
   <% else %>
@@ -21,6 +13,3 @@
   <form action="/back" method="get">
     <p><input type="submit" value="Back"></p>
   </form>
-
-</body>
-</html>

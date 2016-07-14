@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>List of words</title>
-</head>
-<body>
-
   <% if $pr_tr.prefix_absent %>
     <h4> Prefix <font color="red"><%= @prefix %></font> is absent in the tree</h4>
   <% elsif @prefix != "" %>
@@ -29,6 +21,3 @@
   <form action="/back" method="get">
     <p><input type="submit" value="Back"></p>
   </form>
-
-</body>
-</html>

@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Load from zip file</title>
-</head>
-<body>
-
   <% if @error %>
     <h4>Zip file with name <font color="red"><%= @filename %>.zip</font> is already unpacked</h4>
   <% else %>
@@ -18,6 +10,3 @@
   <form action="/back" method="get">
     <p><input type="submit" value="Back"></p>
   </form>
-
-</body>
-</html>
