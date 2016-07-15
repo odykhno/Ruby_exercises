@@ -56,7 +56,7 @@ case command
     puts "please, enter the name of file"
     filename = gets.chomp
     output = prefix_tree.load_from_zip_file filename
-    puts prefix_tree.file_error ? "file with name #{filename}.zip is already unpacked" : output
+    puts prefix_tree.file_error ? "file with name #{filename}.zip is already unpacked or doesn't exists" : output
   else
     puts "there is unknown command, please, try again"
 end

@@ -1,5 +1,5 @@
   <% if @error %>
-    <h4>Zip file with name <font color="red"><%= @filename %>.zip</font> is already unpacked</h4>
+    <h4>Zip file with name <font color="red"><%= @filename %>.zip</font> is already unpacked or doesn't exists</h4>
   <% else %>
     <h4>List of words loaded from file <font color="red"><%= @filename %>.zip</font>:</h4>
     <% @output.each do |word| %>

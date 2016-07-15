@@ -93,12 +93,15 @@ class PrefixTree
     if File.file?(filename + "_unpacked.txt")
       puts "Zip file with name #{filename}.zip is already unpacked"
       @file_error = true
+    elsif !File.exists?(filename + ".zip")
+      puts "Zip file with name #{filename}.zip is not exists"
+      @file_error = true
     else
       Zip::File.open(filename + ".zip") do |zip_file|
-      zip_file.each do |entry|
-        entry.extract(filename + "_unpacked.txt")
+        zip_file.each do |entry|
+          entry.extract(filename + "_unpacked.txt")
+        end
       end
-    end
     load_from_file filename + "_unpacked"
     end
   end
